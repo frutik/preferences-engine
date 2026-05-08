@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: expire-decayed-memories-{{ENVIRONMENT}}
+spec:
+  schedule: "0 3 * * *"   # daily at 03:00 UTC
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: app
+              image: {{DOCKER_IMAGE}}/app:{{DOCKER_TAG}}
+              imagePullPolicy: Always
+              command: ["python", "manage.py", "expire_decayed_memories"]
+              env:
+                - name: APP_VERSION
+                  value: "{{DOCKER_TAG}}"
+                - name: APP_ENVIRONMENT
+                  value: "{{ENVIRONMENT}}"
+              envFrom:
+                - configMapRef:
+                    name: common
+                - configMapRef:
+                    name: {{ENVIRONMENT}}
