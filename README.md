@@ -108,7 +108,7 @@ See [DICE_COMPLIENCE.md](DICE_COMPLIENCE.md) for the full compliance summary tab
 ## Install
 
 ```
-pip install git+https://github.com/YOUR_USERNAME/preferences-engine.git@main
+pip install git+https://github.com/frutik/preferences-engine.git@main
 ```
 
 And in a Django project's INSTALLED_APPS:
