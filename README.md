@@ -143,6 +143,9 @@ api.add_router("/user_preferences/", preference_router)
 ```
 Implementation of AuthBearer is omitted in example.
 
+![Example](example2.png)
+
+
 ## Maintenance
 
 ### `expire_decayed_memories`
