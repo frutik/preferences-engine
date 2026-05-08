@@ -13,7 +13,7 @@ Another planned direction is a user-facing API that gives users visibility and c
 
 ## Limitations
 
-- **Domain**: hardcoded for e-commerce; not yet configurable for other domains
+- **Domain**: hardcoded for e-commerce in [`preferences_engine/domain_schema.py`](preferences_engine/domain_schema.py); not yet configurable for other domains
 - **LLM provider**: OpenAI only; no support for other providers
 - **ORM**: Django ORM only; no adapter for other persistence layers
 - **No audit module**: there is currently no mechanism to prevent extracting sensitive preferences — use with caution in production
