@@ -56,6 +56,25 @@ Predicates: prefers, dislikes/wants to avoid, is looking for, has budget of,
 3. **Inject** — top-N propositions by `importance × confidence` prepended to the agent's system prompt
 
 
+### Memory Types
+
+#### The Four Types
+
+| Type | What it holds | Durability |
+|------|--------------|------------|
+| **semantic** | Stable facts about the user — "prefers Sony", "hates leather", "budget under €100" | Permanent (low decay) |
+| **procedural** | How the user wants things done — "always show prices first", "don't suggest bundles" | Permanent |
+| **episodic** | Specific past events — "bought running shoes last March", "asked about TVs in session X" | Medium-lived |
+| **working** | In-session temporary context — "currently looking for a gift for her husband" | Expires fast (high decay) |
+
+#### Semantic vs Working — The Critical Distinction
+
+This is not just a label difference. It controls **where the memory is written** (`extraction.py:162–177`):
+
+- **semantic / procedural / episodic** → saved to `global_writable` with `conversation_id=NULL` — survives across all future conversations.
+- **working** → saved to `conversation_writable` tied to the current `conversation_id` — disappears when the conversation ends.
+
+
 ## Inspiration of this project
 
 This implementation tries to follow the original [DICE](https://github.com/embabel/dice/tree/90c00d93f8e347ebafa94cf8ba1c855b19eb22b1) design and is heavily inspired by its code and the accompanying article: [Agents That Extract and Use Preferences from Conversations](https://medium.com/embabel/agents-that-extract-and-use-preferences-from-conversations-7b22cca9abb3).
