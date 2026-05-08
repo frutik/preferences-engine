@@ -10,3 +10,10 @@ This implementation tries to follow the original [DICE](https://github.com/embab
 There is also an idea to extend the inference signal beyond chat messages to include implicit user behavior — such as applied filters and item clicks — as additional sources for preference extraction.
 
 Another planned direction is a user-facing API that gives users visibility and control over their inferred preferences — allowing them to inspect what has been inferred and selectively disable individual preferences or turn off inference entirely.
+
+## Limitations
+
+- **Domain**: hardcoded for e-commerce; not yet configurable for other domains
+- **LLM provider**: OpenAI only; no support for other providers
+- **ORM**: Django ORM only; no adapter for other persistence layers
+- **No audit module**: there is currently no mechanism to prevent extracting sensitive preferences — use with caution in production
