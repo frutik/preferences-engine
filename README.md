@@ -55,18 +55,6 @@ Predicates: prefers, dislikes/wants to avoid, is looking for, has budget of,
 2. **Revise** — deduplicate / update against existing store (exact match or embedding similarity)
 3. **Inject** — top-N propositions by `importance × confidence` prepended to the agent's system prompt
 
-
-### Preference Update Strategies
-
-There are two ways to trigger preference extraction, each with different latency/freshness tradeoffs:
-
-| Strategy | How | Latency impact | When new preferences take effect |
-|---|---|---|---|
-| **Inline** (`usage.py`) | `update_memory_from_turn` is awaited before the LLM generates the answer | Chat turn is slower — two extra LLM calls block the response | Immediately — the current message can already influence this turn's answer |
-| **Background** (`tasks.py`) | `update_memory_from_turn` is dispatched as a Celery task after the response is returned | Chat turn is fast — extraction runs out-of-band | Next turn or later — the current message does not affect this turn's answer |
-
-Choose inline when freshness matters most (e.g. a user declares a budget mid-session and the very next response should respect it). Choose background when response latency matters most and a one-turn lag is acceptable.
-
 ### Memory Types
 
 #### The Four Types
@@ -94,7 +82,19 @@ There is also an idea to extend the inference signal beyond chat messages to inc
 
 Another planned direction is a user-facing API that gives users visibility and control over their inferred preferences — allowing them to inspect what has been inferred and selectively disable individual preferences or turn off inference entirely.
 
-## Environment variables
+### Preference Update Strategies
+
+There are two ways to trigger preference extraction, each with different latency/freshness tradeoffs:
+
+| Strategy | How | Latency impact | When new preferences take effect |
+|---|---|---|---|
+| **Inline** (`usage.py`) | `update_memory_from_turn` is awaited before the LLM generates the answer | Chat turn is slower — two extra LLM calls block the response | Immediately — the current message can already influence this turn's answer |
+| **Background** (`tasks.py`) | `update_memory_from_turn` is dispatched as a Celery task after the response is returned | Chat turn is fast — extraction runs out-of-band | Next turn or later — the current message does not affect this turn's answer |
+
+Choose inline when freshness matters most (e.g. a user declares a budget mid-session and the very next response should respect it). Choose background when response latency matters most and a one-turn lag is acceptable.
+
+
+### Environment variables
 
 | Variable | Required | Default | Description |
 |---|---|---|---|
