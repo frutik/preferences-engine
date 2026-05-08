@@ -22,10 +22,26 @@ The result: instead of *"Hi! What are you looking for today?"* you get *"Welcome
 
 That's DICE. The store's domain knowledge, remembered in your file, injected into every conversation at exactly the right moment.
 
----
+## What Is DICE? (Formal Definition)
 
+Embabel's **Domain Injected Context Engineering (DICE)** is a framework for integrating domain models into LLM interactions.
 
-## Inspiration
+**Full name used in research/source:** Domain Integrated Context Engineering (also rendered as Domain Injected Context Engineering).
+
+Its four core principles are:
+
+1. **Domain-first architecture** — domain objects and business ontology are the source of truth, not prompts.
+2. **Structured bidirectional mapping** — domain structure applies to both inputs sent to LLMs and outputs received back.
+3. **Code-driven context filtering** — code, not the LLM, decides what enters the context window.
+4. **Persistent domain integration** — LLM-derived knowledge is grounded in existing persistence systems (SQL, graph, etc.), not greenfield vector stores.
+
+DICE ships **no built-in entity types or predicates** — the entire schema is user-defined.
+
+**Based on:** General User Models (GUM) research (Stanford/Microsoft, 76% accuracy for high-confidence propositions).
+
+**Primary implementation:** Kotlin/Spring library — `https://github.com/embabel/dice` (commit researched: `90c00d93f8e347ebafa94cf8ba1c855b19eb22b1`). No Python SDK ships with the library.
+
+## Inspiration of this project
 
 This implementation tries to follow the original [DICE](https://github.com/embabel/dice/tree/90c00d93f8e347ebafa94cf8ba1c855b19eb22b1) design and is heavily inspired by its code and the accompanying article: [Agents That Extract and Use Preferences from Conversations](https://medium.com/embabel/agents-that-extract-and-use-preferences-from-conversations-7b22cca9abb3).
 
