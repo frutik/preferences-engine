@@ -4,6 +4,8 @@ from openai import AsyncOpenAI
 
 client = AsyncOpenAI(api_key=os.getenv("PREFERENCE_ENGINE_OPENAI_API_KEY"))
 
+_DEFAULT_MODEL = os.getenv("PREFERENCE_ENGINE_OPENAI_MODEL", "gpt-5.5")
+
 
 async def generate_answer(
     *,
@@ -12,7 +14,7 @@ async def generate_answer(
     memory_context: str,
 ):
     response = await client.responses.create(
-        model="gpt-5.5",
+        model=_DEFAULT_MODEL,
         input=[
             {
                 "role": "system",

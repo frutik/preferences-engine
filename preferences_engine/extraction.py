@@ -7,6 +7,8 @@ from .schemas import ExtractionResult, MemoryType, PreferenceSchema, RevisionRes
 
 client = AsyncOpenAI(api_key=os.getenv("PREFERENCE_ENGINE_OPENAI_API_KEY"))
 
+_DEFAULT_MODEL = os.getenv("PREFERENCE_ENGINE_OPENAI_MODEL", "gpt-5.5")
+
 
 def render_schema(schema: PreferenceSchema) -> str:
     entity_types = "\n".join(
@@ -37,7 +39,7 @@ async def extract_propositions(
     memory: DjangoPreferenceMemory,
     schema: PreferenceSchema,
     new_messages: list[dict],
-    model: str = "gpt-5.5",
+    model: str = _DEFAULT_MODEL,
 ) -> ExtractionResult:
     conversation = "\n".join(
         f"{m['role']}: {m['content']}"
@@ -95,7 +97,7 @@ async def revise_propositions(
     *,
     memory: DjangoPreferenceMemory,
     extracted: ExtractionResult,
-    model: str = "gpt-5.5",
+    model: str = _DEFAULT_MODEL,
 ) -> RevisionResult:
     existing = await memory.existing_for_prompt()
 
