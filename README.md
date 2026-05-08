@@ -3,6 +3,28 @@ DICE-inspired AI-powered engine for inferring user preferences
 
 ![Example](example.png)
 
+## What Is DICE? (In Plain English)
+
+Imagine you walk into a big store and a shop assistant comes up to help you.
+
+But this assistant has a superpower: **they remember everything about you from every visit.**
+
+**1. The assistant speaks the store's language**
+Before talking to you, the assistant already knows how the store is organised: there are *Brands*, *Categories*, *Price ranges*, *Colors*. They know the difference between "I prefer Nike" and "I need running shoes under €80". They don't confuse products with brands, or wishes with budgets. The store taught them a map of its own world.
+
+**2. After each visit, the assistant writes notes in your customer file**
+"This customer hates leather. Loves Sony. Always shops for her husband, not herself. Budget usually under €100." These notes live in the store's own system — not on a sticky note that gets lost. Next time you walk in, the file is already there.
+
+**3. Before greeting you, the assistant quickly skims your file**
+Not the whole thing — just the most useful bits. The most recent, most certain facts. Then they greet you already knowing: *"Last time she was looking for a gift for her husband who likes tech and has a €150 budget."* You don't have to explain yourself again from scratch.
+
+The result: instead of *"Hi! What are you looking for today?"* you get *"Welcome back! Still looking for something for your husband, or is this for yourself this time?"*
+
+That's DICE. The store's domain knowledge, remembered in your file, injected into every conversation at exactly the right moment.
+
+---
+
+
 ## Inspiration
 
 This implementation tries to follow the original [DICE](https://github.com/embabel/dice/tree/90c00d93f8e347ebafa94cf8ba1c855b19eb22b1) design and is heavily inspired by its code and the accompanying article: [Agents That Extract and Use Preferences from Conversations](https://medium.com/embabel/agents-that-extract-and-use-preferences-from-conversations-7b22cca9abb3).
