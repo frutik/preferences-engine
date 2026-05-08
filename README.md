@@ -100,6 +100,24 @@ Choose inline when freshness matters most (e.g. a user declares a budget mid-ses
 |---|---|---|---|
 | `PREFERENCE_ENGINE_OPENAI_API_KEY` | Yes | — | OpenAI API key used for preference extraction |
 | `PREFERENCE_ENGINE_OPENAI_MODEL` | No | `gpt-5.5` | OpenAI model used for extraction |
+| `PREFERENCE_ENGINE_OPENAI_BASE_URL` | No | — | Base URL for an OpenAI-compatible API. Omit to use the default OpenAI endpoint. |
+
+### Using an OpenAI-compatible API (e.g. Ollama)
+
+The engine works with any OpenAI-compatible server. Set `PREFERENCE_ENGINE_OPENAI_BASE_URL` to point at it and pick a model that server provides.
+
+**Ollama example**
+
+```bash
+# Start Ollama with a model that supports structured output
+ollama pull llama3.1
+
+export PREFERENCE_ENGINE_OPENAI_BASE_URL=http://localhost:11434/v1
+export PREFERENCE_ENGINE_OPENAI_API_KEY=ollama   # Ollama ignores the key, but a non-empty value is required
+export PREFERENCE_ENGINE_OPENAI_MODEL=llama3.1
+```
+
+> **Note:** Preference extraction relies on structured JSON output (`response_format` / `text_format`). Make sure the model you choose supports it reliably. Larger models (70B+) tend to follow schemas more faithfully than smaller ones.
 
 ## DICE Compliance
 

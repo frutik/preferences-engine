@@ -5,7 +5,10 @@ from openai import AsyncOpenAI
 from .memory import DjangoPreferenceMemory
 from .schemas import ExtractionResult, MemoryType, PreferenceSchema, RevisionResult
 
-client = AsyncOpenAI(api_key=os.getenv("PREFERENCE_ENGINE_OPENAI_API_KEY"))
+_client_kwargs = {"api_key": os.getenv("PREFERENCE_ENGINE_OPENAI_API_KEY")}
+if _base_url := os.getenv("PREFERENCE_ENGINE_OPENAI_BASE_URL"):
+    _client_kwargs["base_url"] = _base_url
+client = AsyncOpenAI(**_client_kwargs)
 
 _DEFAULT_MODEL = os.getenv("PREFERENCE_ENGINE_OPENAI_MODEL", "gpt-5.5")
 
