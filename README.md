@@ -146,3 +146,18 @@ The architecture is **fully aligned with DICE in both design and operation**. Th
 - **LLM provider**: OpenAI only; no support for other providers
 - **Memory**: Django ORM only; no adapter for other persistence layers
 - **No audit module**: there is currently no mechanism to prevent extracting sensitive preferences — use with caution in production
+
+## Install
+
+```
+pip install git+https://github.com/YOUR_USERNAME/preferences-engine.git@main
+```
+
+And in a Django project's INSTALLED_APPS:
+
+```
+  INSTALLED_APPS = [
+      ...
+      "preferences_engine",
+  ]
+```
