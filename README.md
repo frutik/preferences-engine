@@ -126,6 +126,23 @@ Execute DB migrations
 /path/to/venv/bin/python /path/to/manage.py migrate preferences_engine
 ```
 
+Install API. In your Ninja API file
+
+```angular2html
+from ninja import NinjaAPI
+from preferences_engine.api import router as preference_router
+
+api = NinjaAPI(
+    title="MY API",
+    description="my api",
+    version="0.0.0",
+    auth=AuthBearer()
+)
+
+api.add_router("/user_preferences/", preference_router)
+```
+Implementation of AuthBearer is omitted in example.
+
 ## Maintenance
 
 ### `expire_decayed_memories`
