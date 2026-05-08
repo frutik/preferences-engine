@@ -11,6 +11,33 @@ There is also an idea to extend the inference signal beyond chat messages to inc
 
 Another planned direction is a user-facing API that gives users visibility and control over their inferred preferences — allowing them to inspect what has been inferred and selectively disable individual preferences or turn off inference entirely.
 
+## Environment variables
+
+| Variable | Required | Default | Description |
+|---|---|---|---|
+| `PREFERENCE_ENGINE_OPENAI_API_KEY` | Yes | — | OpenAI API key used for preference extraction |
+| `PREFERENCE_ENGINE_OPENAI_MODEL` | No | `gpt-5.5` | OpenAI model used for extraction |
+
+## Maintenance
+
+### `expire_decayed_memories`
+
+Scans all active preferences and marks any whose effective score (`importance × confidence × e^(−decay × age_months)`) has fallen below `DECAY_THRESHOLD = 0.05` as `SUPERSEDED`.
+
+```bash
+# Preview without writing
+python manage.py expire_decayed_memories --dry-run
+
+# Apply
+python manage.py expire_decayed_memories
+```
+
+Intended to be run periodically as a cronjob, e.g. nightly:
+
+```cron
+0 2 * * * /path/to/venv/bin/python /path/to/manage.py expire_decayed_memories >> /var/log/expire_decayed_memories.log 2>&1
+```
+
 ## Limitations
 
 - **Domain**: hardcoded for e-commerce in [`preferences_engine/domain_schema.py`](preferences_engine/domain_schema.py); not yet configurable for other domains
