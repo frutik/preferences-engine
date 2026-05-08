@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=70", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "preferences-engine"
+version = "0.1.0"
+description = "DICE-inspired AI-powered engine for inferring user preferences"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "celery",
+    "django",
+    "openai",
+    "pydantic",
+    "django-ninja",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["preferences_engine*"]
