@@ -41,6 +41,14 @@ DICE ships **no built-in entity types or predicates** — the entire schema is u
 
 **Primary implementation:** Kotlin/Spring library — `https://github.com/embabel/dice` (commit researched: `90c00d93f8e347ebafa94cf8ba1c855b19eb22b1`). No Python SDK ships with the library.
 
+### E-commerce Schema Example
+
+```
+Entity types: Customer, Product, Category, Brand, Feature, PriceRange
+Predicates: prefers, dislikes/wants to avoid, is looking for, has budget of,
+            owns, is interested in, needs
+```
+
 ## Inspiration of this project
 
 This implementation tries to follow the original [DICE](https://github.com/embabel/dice/tree/90c00d93f8e347ebafa94cf8ba1c855b19eb22b1) design and is heavily inspired by its code and the accompanying article: [Agents That Extract and Use Preferences from Conversations](https://medium.com/embabel/agents-that-extract-and-use-preferences-from-conversations-7b22cca9abb3).
