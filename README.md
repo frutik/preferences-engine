@@ -101,6 +101,31 @@ Choose inline when freshness matters most (e.g. a user declares a budget mid-ses
 | `PREFERENCE_ENGINE_OPENAI_API_KEY` | Yes | — | OpenAI API key used for preference extraction |
 | `PREFERENCE_ENGINE_OPENAI_MODEL` | No | `gpt-5.5` | OpenAI model used for extraction |
 
+## DICE Compliance
+
+See [DICE_COMPLIENCE.md](DICE_COMPLIENCE.md) for the full compliance summary table and verdict.
+
+## Install
+
+```
+pip install git+https://github.com/YOUR_USERNAME/preferences-engine.git@main
+```
+
+And in a Django project's INSTALLED_APPS:
+
+```
+  INSTALLED_APPS = [
+      ...
+      "preferences_engine",
+  ]
+```
+
+Execute DB migrations
+
+```angular2html
+/path/to/venv/bin/python /path/to/manage.py migrate preferences_engine
+```
+
 ## Maintenance
 
 ### `expire_decayed_memories`
@@ -119,23 +144,4 @@ Intended to be run periodically as a cronjob, e.g. nightly:
 
 ```cron
 0 2 * * * /path/to/venv/bin/python /path/to/manage.py expire_decayed_memories >> /var/log/expire_decayed_memories.log 2>&1
-```
-
-## DICE Compliance
-
-See [DICE_COMPLIENCE.md](DICE_COMPLIENCE.md) for the full compliance summary table and verdict.
-
-## Install
-
-```
-pip install git+https://github.com/YOUR_USERNAME/preferences-engine.git@main
-```
-
-And in a Django project's INSTALLED_APPS:
-
-```
-  INSTALLED_APPS = [
-      ...
-      "preferences_engine",
-  ]
 ```
