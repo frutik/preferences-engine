@@ -1,7 +1,7 @@
 # preferences-engine
 DICE-inspired AI-powered engine for inferring user preferences
 
-DICE - Domain Injected Context Engineering, Domain Integrated Context Engineering
+**Acronym DICE stands for** Domain Injected Context Engineering (also rendered as Domain Integrated Context Engineering).
 
 ![Example](example.png)
 
