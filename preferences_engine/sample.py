@@ -16,9 +16,9 @@ async def generate_answer(
     history: list[dict],
     memory_context: str,
 ):
-    response = await client.responses.create(
+    response = await client.chat.completions.create(
         model=_DEFAULT_MODEL,
-        input=[
+        messages=[
             {
                 "role": "system",
                 "content": f"""
@@ -36,4 +36,4 @@ Do not mention memory unless debug mode is enabled.
         ],
     )
 
-    return response.output_text
+    return response.choices[0].message.content

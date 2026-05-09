@@ -51,9 +51,9 @@ async def extract_propositions(
 
     existing = await memory.existing_for_prompt()
 
-    response = await client.responses.parse(
+    response = await client.beta.chat.completions.parse(
         model=model,
-        input=[
+        messages=[
             {
                 "role": "system",
                 "content": f"""
@@ -88,10 +88,10 @@ New conversation:
 """,
             },
         ],
-        text_format=ExtractionResult,
+        response_format=ExtractionResult,
     )
 
-    result = response.output_parsed
+    result = response.choices[0].message.parsed
     await memory.log_extraction(result.propositions)
     return result
 
@@ -104,9 +104,9 @@ async def revise_propositions(
 ) -> RevisionResult:
     existing = await memory.existing_for_prompt()
 
-    response = await client.responses.parse(
+    response = await client.beta.chat.completions.parse(
         model=model,
-        input=[
+        messages=[
             {
                 "role": "system",
                 "content": """
@@ -134,10 +134,10 @@ Extracted propositions:
 """,
             },
         ],
-        text_format=RevisionResult,
+        response_format=RevisionResult,
     )
 
-    return response.output_parsed
+    return response.choices[0].message.parsed
 
 
 async def update_memory_from_turn(
