@@ -100,9 +100,12 @@ Choose inline when freshness matters most (e.g. a user declares a budget mid-ses
 
 | Variable | Required | Default | Description |
 |---|---|---|---|
-| `PREFERENCE_ENGINE_OPENAI_API_KEY` | Yes | — | OpenAI API key used for preference extraction |
+| `PREFERENCE_ENGINE_PROVIDER` | No | `openai` | LLM provider to use: `openai`, `anthropic`, or `bedrock` |
+| `PREFERENCE_ENGINE_OPENAI_API_KEY` | If using OpenAI | — | OpenAI API key |
 | `PREFERENCE_ENGINE_OPENAI_MODEL` | No | `gpt-5.5` | OpenAI model used for extraction |
 | `PREFERENCE_ENGINE_OPENAI_BASE_URL` | No | — | Base URL for an OpenAI-compatible API. Omit to use the default OpenAI endpoint. |
+| `PREFERENCE_ENGINE_ANTHROPIC_API_KEY` | If using Anthropic | — | Anthropic API key |
+| `AWS_REGION` | If using Bedrock | `us-east-1` | AWS region for Bedrock requests |
 
 ### Using an OpenAI-compatible API (e.g. Ollama)
 
@@ -127,8 +130,20 @@ See [DICE_COMPLIENCE.md](DICE_COMPLIENCE.md) for the full compliance summary tab
 
 ## Install
 
-```
-pip install git+https://github.com/frutik/preferences-engine.git@main
+Install the package with only the LLM provider you need:
+
+```bash
+# OpenAI (default)
+pip install "preferences-engine[openai] @ git+https://github.com/frutik/preferences-engine.git@main"
+
+# Anthropic
+pip install "preferences-engine[anthropic] @ git+https://github.com/frutik/preferences-engine.git@main"
+
+# AWS Bedrock (Anthropic via Bedrock)
+pip install "preferences-engine[bedrock] @ git+https://github.com/frutik/preferences-engine.git@main"
+
+# All providers
+pip install "preferences-engine[all] @ git+https://github.com/frutik/preferences-engine.git@main"
 ```
 
 And in a Django project's INSTALLED_APPS:

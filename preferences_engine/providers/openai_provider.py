@@ -1,6 +1,11 @@
 import os
 
-from openai import AsyncOpenAI
+try:
+    from openai import AsyncOpenAI
+except ImportError as e:
+    raise ImportError(
+        "OpenAI provider requires: pip install 'preferences-engine[openai]'"
+    ) from e
 from pydantic import BaseModel
 
 

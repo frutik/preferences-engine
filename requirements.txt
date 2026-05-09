@@ -1,6 +1,6 @@
-celery
-django
-openai
-anthropic[bedrock]
-pydantic
-django-ninja
+# Install the package with all LLM providers for local development.
+# For production, install only the extras you need:
+#   pip install -e ".[openai]"
+#   pip install -e ".[anthropic]"
+#   pip install -e ".[bedrock]"
+-e ".[all,dev]"

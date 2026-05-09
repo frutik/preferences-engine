@@ -1,6 +1,11 @@
 import os
 
-from anthropic import AsyncAnthropic
+try:
+    from anthropic import AsyncAnthropic
+except ImportError as e:
+    raise ImportError(
+        "Anthropic provider requires: pip install 'preferences-engine[anthropic]'"
+    ) from e
 from pydantic import BaseModel
 
 

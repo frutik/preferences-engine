@@ -1,6 +1,11 @@
 import os
 
-from anthropic import AsyncAnthropicBedrock
+try:
+    from anthropic import AsyncAnthropicBedrock
+except ImportError as e:
+    raise ImportError(
+        "Bedrock provider requires: pip install 'preferences-engine[bedrock]'"
+    ) from e
 
 from .anthropic_provider import AnthropicProvider
 
