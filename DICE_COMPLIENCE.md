@@ -1,5 +1,10 @@
 # DICE Compliance
 
+This document analyses how well the implementation in this repository is aligned with the canonical DICE framework as introduced in the original paper. Each section maps a core DICE concept to the corresponding code, identifies gaps, and notes where the implementation diverges from or extends the paper's design.
+
+**Date:** 2026-05-07
+**Scope:** `search_chat/preferences_engine/` + integration in `openai_assistant/agent/controllers/v1.py`
+
 ## DICE Compliance Summary Table
 
 | DICE Principle | Status | Notes                                                                                |
