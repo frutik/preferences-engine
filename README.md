@@ -164,6 +164,45 @@ Implementation of AuthBearer is omitted in example.
 ![Example](example2.png)
 
 
+## Usage in chat
+
+```python
+from preferences_engine.domain_schema import SHOPPING_PREFERENCE_SCHEMA
+from preferences_engine.extraction import update_memory_from_turn
+from preferences_engine.memory import DjangoPreferenceMemory
+
+# Load memory for this user + conversation
+memory = await DjangoPreferenceMemory.for_user_key(
+    user_key="user-123",
+    conversation_id="session-abc",
+    include_global=True,
+)
+
+# Extract and save preferences from the new message
+await update_memory_from_turn(
+    readable_memory=memory,
+    writable_memory=DjangoPreferenceMemory(user=memory.user, conversation_id=None),
+    schema=SHOPPING_PREFERENCE_SCHEMA,
+    new_messages=[{"role": "user", "content": user_message}],
+)
+
+# Inject preferences into the system prompt
+memory_context = await memory.inject_for_prompt(limit=20)
+
+response = await client.responses.create(
+    model="gpt-4o",
+    input=[
+        {
+            "role": "system",
+            "content": f"You are a shopping assistant.\n\nKnown user preferences:\n{memory_context}",
+        },
+        {"role": "user", "content": user_message},
+    ],
+)
+```
+
+For the full working example including the OpenAI client setup, see [`preferences_engine/sample.py`](preferences_engine/sample.py).
+
 ## Maintenance
 
 ### `expire_decayed_memories`
