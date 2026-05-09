@@ -1,6 +1,8 @@
 # preferences-engine
 DICE-inspired AI-powered engine for inferring user preferences
 
+DICE - Domain Injected Context Engineering, Domain Integrated Context Engineering
+
 ![Example](example.png)
 
 ## What Is DICE? (In Plain English)
