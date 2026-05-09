@@ -1,14 +1,8 @@
 import os
 
-from openai import AsyncOpenAI
-
 from .memory import DjangoPreferenceMemory
+from .providers.factory import get_provider
 from .schemas import ExtractionResult, MemoryType, PreferenceSchema, RevisionResult
-
-_client_kwargs = {"api_key": os.getenv("PREFERENCE_ENGINE_OPENAI_API_KEY")}
-if _base_url := os.getenv("PREFERENCE_ENGINE_OPENAI_BASE_URL"):
-    _client_kwargs["base_url"] = _base_url
-client = AsyncOpenAI(**_client_kwargs)
 
 _DEFAULT_MODEL = os.getenv("PREFERENCE_ENGINE_OPENAI_MODEL", "gpt-5.5")
 
@@ -51,7 +45,7 @@ async def extract_propositions(
 
     existing = await memory.existing_for_prompt()
 
-    response = await client.beta.chat.completions.parse(
+    result = await get_provider().structured_chat(
         model=model,
         messages=[
             {
@@ -88,10 +82,9 @@ New conversation:
 """,
             },
         ],
-        response_format=ExtractionResult,
+        response_model=ExtractionResult,
     )
 
-    result = response.choices[0].message.parsed
     await memory.log_extraction(result.propositions)
     return result
 
@@ -104,7 +97,7 @@ async def revise_propositions(
 ) -> RevisionResult:
     existing = await memory.existing_for_prompt()
 
-    response = await client.beta.chat.completions.parse(
+    return await get_provider().structured_chat(
         model=model,
         messages=[
             {
@@ -134,10 +127,8 @@ Extracted propositions:
 """,
             },
         ],
-        response_format=RevisionResult,
+        response_model=RevisionResult,
     )
-
-    return response.choices[0].message.parsed
 
 
 async def update_memory_from_turn(
